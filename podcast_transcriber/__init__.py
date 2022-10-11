@@ -9,7 +9,7 @@ from podcast_transcriber.audio_downloader import (
 )
 from podcast_transcriber.collector import collect_data
 from podcast_transcriber.podcast_infos import get_podcast_infos
-from podcast_transcriber.podcast_scraper import (
+from podcast_transcriber.scraper import (
     read_podcast_feed_file,
     scrape_podcast_feed,
 )

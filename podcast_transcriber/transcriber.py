@@ -61,8 +61,9 @@ def transcribe_episode(
         transcript = read_transcript_file(transcript_file_path)
 
     except FileNotFoundError:
-        print(f"Transcribing `{transcript_file_path.resolve()}`.")
+        print(f"Transcribing `{episode_audio_file.resolve()}`.")
         transcript = transcribe_file(episode_audio_file, model)
+        print(f"Writing transcript to `{transcript_file_path.resolve()}`.")
         create_parent_folder(transcript_file_path)
         with open(transcript_file_path, "w") as f:
             f.write(transcript.json())

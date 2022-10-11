@@ -24,6 +24,9 @@ def write_raw_podcast_feed(
 
 
 def scrape_podcast_feed(podcast_info: PodcastInfo, data_folder: Path) -> PodcastFeed:
+    print(
+        f"Scraping podcast feed for podcast `{podcast_info.podcast_id}` from `{podcast_info.podcast_url}`."
+    )
     with urllib.request.urlopen(podcast_info.podcast_url) as stream:
         podcast_feed_dict: Dict[str, Any] = podcastparser.parse(podcast_info.podcast_url, stream)  # type: ignore
     podcast_feed = PodcastFeed(**podcast_feed_dict)

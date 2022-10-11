@@ -49,6 +49,7 @@ def collect_data(
     transcripts: Dict[Tuple[PodcastId, EpisodeSlug, ModelName], Transcript],
     data_folder: Path,
 ) -> Path:
+    print("Collecting data into a single file.")
     collected_podcasts: List[CollectedPodcast] = []
     for podcast_info in podcast_infos:
         podcast_is_premium = podcast_info.premium
@@ -117,6 +118,7 @@ def collect_data(
     collected_data = CollectedData(podcasts=collected_podcasts)
 
     output_file_path = data_folder / "cleaned" / "cleaned.json"
+    print(f"Writing collected data to `{output_file_path.resolve()}`.")
     create_parent_folder(output_file_path)
     with open(output_file_path, "w") as f:
         f.write(collected_data.json())

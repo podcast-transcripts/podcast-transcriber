@@ -7,7 +7,7 @@ import requests
 from podcast_transcriber.types import Episode, EpisodeSlug
 from podcast_transcriber.utils import slugify
 
-GET_FILE_EXTENSION_PATTERN = re.compile(r"\.([^.]+?)$")
+GET_FILE_EXTENSION_PATTERN = re.compile(r"\.([^.]+?)(?:\?.+)?$")
 
 
 def get_episode_url(episode: Episode) -> str:

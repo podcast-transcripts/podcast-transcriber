@@ -17,6 +17,7 @@ class PodcastId(str):
 class PodcastInfo(BaseModel):
     podcast_id: PodcastId
     podcast_url: AnyUrl
+    premium: bool
 
 
 class Enclosure(BaseModel):

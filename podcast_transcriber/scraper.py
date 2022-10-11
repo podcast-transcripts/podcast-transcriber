@@ -1,5 +1,6 @@
 import json
 import urllib.request
+from logging import getLogger as get_logger
 from pathlib import Path
 from typing import Any, Dict
 
@@ -8,6 +9,8 @@ import podcastparser
 from podcast_transcriber.podcast_infos import PodcastInfo
 from podcast_transcriber.types import PodcastFeed
 from podcast_transcriber.utils import create_parent_folder
+
+LOGGER = get_logger(__name__)
 
 
 def get_podcast_feed_file_path(podcast_info: PodcastInfo, data_folder: Path):
@@ -24,7 +27,7 @@ def write_raw_podcast_feed(
 
 
 def scrape_podcast_feed(podcast_info: PodcastInfo, data_folder: Path) -> PodcastFeed:
-    print(
+    LOGGER.info(
         f"Scraping podcast feed for podcast `{podcast_info.podcast_id}` from `{podcast_info.podcast_url}`."
     )
     with urllib.request.urlopen(podcast_info.podcast_url) as stream:

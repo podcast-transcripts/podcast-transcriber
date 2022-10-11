@@ -1,4 +1,5 @@
 import json
+from logging import getLogger as get_logger
 from pathlib import Path
 from typing import Any, Dict
 
@@ -12,6 +13,8 @@ from podcast_transcriber.types import (
     Transcript,
 )
 from podcast_transcriber.utils import create_parent_folder
+
+LOGGER = get_logger(__name__)
 
 
 def get_model(model_name: ModelName) -> NamedModel:
@@ -43,7 +46,7 @@ def get_transcript_file_path(
 
 def read_transcript_file(file_path: Path) -> Transcript:
     with open(file_path, "r") as f:
-        print(f"Reading transcript from `{file_path.resolve()}`.")
+        LOGGER.info(f"Reading transcript from `{file_path.resolve()}`.")
         return Transcript(**json.load(f))
 
 
@@ -61,9 +64,9 @@ def transcribe_episode(
         transcript = read_transcript_file(transcript_file_path)
 
     except FileNotFoundError:
-        print(f"Transcribing `{episode_audio_file.resolve()}`.")
+        LOGGER.info(f"Transcribing `{episode_audio_file.resolve()}`.")
         transcript = transcribe_file(episode_audio_file, model)
-        print(f"Writing transcript to `{transcript_file_path.resolve()}`.")
+        LOGGER.info(f"Writing transcript to `{transcript_file_path.resolve()}`.")
         create_parent_folder(transcript_file_path)
         with open(transcript_file_path, "w") as f:
             f.write(transcript.json())

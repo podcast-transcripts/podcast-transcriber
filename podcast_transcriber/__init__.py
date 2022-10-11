@@ -1,3 +1,6 @@
+import logging
+import sys
+from logging import basicConfig as set_logging_config
 from pathlib import Path
 
 import typer
@@ -19,6 +22,8 @@ from podcast_transcriber.transcriber import (
 )
 from podcast_transcriber.utils import shuffled_dict, shuffled_list, slugify
 
+LOGGING_FORMAT = "[%(asctime)s] %(levelname)s - %(message)s"
+
 
 def main(
     data_folder: Path = Path(".") / "data",
@@ -29,6 +34,8 @@ def main(
     combine: bool = True,
     shuffle: bool = False,
 ):
+    set_logging_config(stream=sys.stdout, level=logging.INFO, format=LOGGING_FORMAT)
+
     model_name: ModelName = model  # type: ignore
 
     # Read podcast infos file

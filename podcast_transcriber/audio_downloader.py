@@ -1,4 +1,5 @@
 import re
+from logging import getLogger as get_logger
 from pathlib import Path
 from time import sleep
 
@@ -6,6 +7,8 @@ import requests
 
 from podcast_transcriber.types import Episode, EpisodeSlug
 from podcast_transcriber.utils import slugify
+
+LOGGER = get_logger(__name__)
 
 GET_FILE_EXTENSION_PATTERN = re.compile(r"\.([^.]+?)(?:\?.+)?$")
 
@@ -23,9 +26,9 @@ def get_file_extension(url: str) -> str:
 
 def download_file(url: str, file_path: Path) -> Path:
     if file_path.exists():
-        print(f"File `{file_path.resolve()}` already exists, skipping download.")
+        LOGGER.info(f"File `{file_path.resolve()}` already exists, skipping download.")
     else:
-        print(f"Downloading url `{url}` to `{file_path.resolve()}`.")
+        LOGGER.info(f"Downloading url `{url}` to `{file_path.resolve()}`.")
         response = requests.get(url)
         response.raise_for_status()
         file_path.parent.mkdir(parents=True, exist_ok=True)

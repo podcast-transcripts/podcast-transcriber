@@ -18,6 +18,7 @@ class PodcastInfo(BaseModel):
     podcast_id: PodcastId
     podcast_url: AnyUrl
     premium: bool
+    enabled: bool
 
 
 class Enclosure(BaseModel):

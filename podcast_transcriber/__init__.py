@@ -40,7 +40,10 @@ def main(
 
     # Read podcast infos file
     podcast_infos_file = data_folder / "podcast-infos.json"
-    podcast_infos = get_podcast_infos(podcast_infos_file)
+    all_podcast_infos = get_podcast_infos(podcast_infos_file)
+    podcast_infos = [
+        podcast_info for podcast_info in all_podcast_infos if podcast_info.enabled
+    ]
     if shuffle:
         podcast_infos = shuffled_list(podcast_infos)
 
